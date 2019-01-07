@@ -19,7 +19,7 @@ class Order extends Base
      * @var array
      */
     protected $appends = [
-        'actions_user', 'actions', 'total', 'quantity', 'total', 'translated_status',
+        'actions_user', 'actions', 'total', 'quantity', 'translated_status',
     ];
 
     /**
@@ -91,7 +91,7 @@ class Order extends Base
 
         foreach ($this->products as $product) $total += $product->pivot->subtotal;
 
-        return number_format($total, 2,',', '.');
+        return $total;
     }
 
     /**

@@ -32,6 +32,7 @@ return [
             'cancelled_user' => 'Orden Cancelada',
             'dispatched' => 'Orden Enviada',
             'delivered' => 'Orden Entregada',
+            'paid' => 'Orden Pagada',
             'pending' => 'Orden Pendiente',
         ],
         'roles' => [
@@ -54,7 +55,9 @@ return [
         'providers_rol' => 'Mi Empresa - Proveedores',
         'storekeeper' => [
             'cart' => 'Mi Carrito - Proveedores',
+            'debts' => 'Deudas',
             'orders' => 'Mis Pedidos',
+            'ordersStore' => 'Pedidos',
             'products' => 'Productos',
             'providers' => 'Proveedores',
             'stores' => 'Mis Tiendas',
@@ -74,6 +77,7 @@ return [
                 'cancelled_user' => 'Cancelado por Cliente',
                 'dispatched' => 'Enviado',
                 'delivered' => 'Entregado',
+                'paid' => 'Pagado',
                 'pending' => 'Pendiente',
             ],
             'status_class' => [
@@ -81,13 +85,15 @@ return [
                 'cancelled_user' => 'warning',
                 'dispatched' => 'info',
                 'delivered' => 'success',
+                'paid' => 'accent',
                 'pending' => 'primary',
             ],
             'status_next' => [
                 'cancelled' => '',
                 'cancelled_user' => '',
                 'dispatched' => 'delivered',
-                'delivered' => '',
+                'delivered' => 'paid',
+                'paid' => '',
                 'pending' => 'dispatched',
             ],
         ],

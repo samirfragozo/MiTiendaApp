@@ -26,7 +26,7 @@ class BaseController extends Controller
         $this->crud = $this->entity->getTable();
         $this->model = $this->entity->orderBy('name');
         $this->user = ['user_id'];
-        $this->middleware('ajax')->except('index', 'orders', 'orderProducts');
+        $this->middleware('ajax')->except('debts', 'debtOrders', 'index', 'orders', 'orderProducts');
     }
 
     /**

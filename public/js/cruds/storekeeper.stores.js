@@ -37,6 +37,9 @@ function getStatus(column, value) {
             '</a>' +
             '<a href="' + crud + '/' + value.id + '/orders" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-success" title="Ordenes">' +
                 '<i class="fa fa-clipboard-list"></i>' +
+            '</a>' +
+            '<a href="' + crud + '/' + value.id + '/debts" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-accent" title="Deudas">' +
+                '<i class="fa fa-money-bill"></i>' +
             '</a>'
         );
     }

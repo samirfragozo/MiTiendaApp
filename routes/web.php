@@ -79,6 +79,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('stores', 'StoreController', ['except' => ['create', 'edit']]);
         Route::post('stores/status', 'StoreController@status');
 
+        // Stores - Deudas
+        Route::get('stores/{store}/debts', 'StoreController@debts');
+        Route::get('stores/{store}/debts/{user}/orders', 'StoreController@debtOrders');
+        Route::put('stores/{store}/debts/{user}/orders', 'StoreController@orderUpdate');
+        Route::get('stores/{store}/debts/{user}/orders/{order}/products', 'StoreController@orderProducts');
+
         // Stores - Orders
         Route::get('stores/{store}/orders', 'StoreController@orders');
         Route::put('stores/{store}/orders', 'StoreController@orderUpdate');

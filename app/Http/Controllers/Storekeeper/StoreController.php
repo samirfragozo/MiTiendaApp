@@ -61,6 +61,88 @@ class StoreController extends BaseController
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
+    public function debts(Request $request)
+    {
+        $store = Store::where([['id', $request->store], ['user_id', auth()->id()]])->store()->first();
+
+        if ( is_null($store) ) return abort(404);
+
+        if (request()->ajax()) {
+            $user = [];
+            $orders = $store->orders()->where('status', 'delivered')->with('user')->get()->groupBy('user_id');
+            foreach ($orders as $key => $value) {
+                $debt = 0;
+                $orders = 0;
+                foreach ($value as $order) {
+                    $debt += $order->total;
+                    $orders ++;
+                    $user[$key] = $order->user;
+                    $user[$key]->debt = $debt;
+                    $user[$key]->orders = $orders;
+                }
+            };
+
+            return Datatables::of($user)->make(true);
+        }
+
+        return view('app.index')->with([
+            'crud' => 'storekeeper.debts',
+            'title' => __('app.titles.storekeeper.stores'),
+            'subtitle' => __('app.titles.storekeeper.debts') . ' - ' . $store->full_name,
+            'tools' => [
+                'create' => false,
+                'reload' => true,
+            ],
+            'table' => [
+                'check' => false,
+                'fields' => ['name', 'orders', 'debt'],
+                'active' => false,
+                'actions' => true,
+            ],
+            'form' => [],
+        ]);
+    }
+
+    /**
+     * Display a listing of the products for the order.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function debtOrders(Request $request)
+    {
+        $store = Store::where([['id', $request->store], ['user_id', auth()->id()]])->store()->first();
+
+        if ( is_null($store) ) return abort(404);
+
+        if ($request->ajax()) return Datatables::of(\App\Order::where([['user_id', $request->user], ['store_id', $store->id], ['status', 'delivered']])->with('user')->orderBy('created_at', 'desc'))->make(true);
+
+        return view('app.index')->with([
+            'crud' => 'storekeeper.orders',
+            'title' => __('app.titles.storekeeper.stores'),
+            'subtitle' => __('app.titles.storekeeper.ordersStore') . ' - ' . $store->full_name,
+            'tools' => [
+                'create' => false,
+                'reload' => true,
+            ],
+            'table' => [
+                'check' => false,
+                'fields' => ['created_at', 'user_id', 'quantity', 'total', 'status'],
+                'active' => false,
+                'actions' => true,
+            ],
+            'form' => [],
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function orders(Request $request)
     {
         $store = Store::where([['id', $request->store], ['user_id', auth()->id()]])->store()->first();
@@ -72,7 +154,7 @@ class StoreController extends BaseController
         return view('app.index')->with([
             'crud' => 'storekeeper.orders',
             'title' => __('app.titles.storekeeper.stores'),
-            'subtitle' => __('app.titles.storekeeper.orders') . ' - ' . $store->full_name,
+            'subtitle' => __('app.titles.storekeeper.ordersStore') . ' - ' . $store->full_name,
             'tools' => [
                 'create' => false,
                 'reload' => true,

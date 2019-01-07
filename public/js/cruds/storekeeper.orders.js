@@ -50,6 +50,12 @@ function getStatus(column, value) {
                 '<i class="fa fa-user-check"></i>' +
                 '</a>'
             ;
+        } else if (value.next == 'paid') {
+            actions +=
+                '<a onclick="status(' + value.id + ',\'' + value.next + '\')" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-accent" title="Pagado">' +
+                '<i class="fa fa-money-bill"></i>' +
+                '</a>'
+            ;
         }
 
         actions +=
