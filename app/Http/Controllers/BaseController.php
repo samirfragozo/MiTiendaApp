@@ -60,6 +60,7 @@ class BaseController extends Controller
 
         foreach ($this->user as $value) $user = $user->$value;
 
+
         if ($user !== auth()->id()) return abort(403);
 
         return response()->json($entity);

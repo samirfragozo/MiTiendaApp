@@ -162,6 +162,7 @@ return [
         'orders' => 'Pedidos',
         'password' => 'Contraseña',
         'password_confirmation' => 'Confirmar Contraseña',
+        'payments' => 'Abonos',
         'phone' => 'Teléfono',
         'picture' => 'Imagen',
         'price' => 'Precio',
@@ -173,7 +174,10 @@ return [
         'store_id' => 'Tienda',
         'subtotal' => 'Subtotal',
         'total' => 'Total',
+        'total_orders' => 'Total Pedidos',
+        'total_payments' => 'Total Abonos',
         'user_id' => 'Cliente',
+        'value' => 'Valor',
     ],
 
 ];

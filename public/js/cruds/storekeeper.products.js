@@ -2,7 +2,7 @@ columnsDataTable = [
     {data: 'id', searchable: false, className: 'dt-center', customValue: true},
     {data: 'picture_min', searchable: false, className: 'dt-center', customValue: true},
     {data: 'name'},
-    {data: 'price'},
+    {data: 'price', className: 'dt-right', customValue: true},
     {data: 'category.name'},
     {data: 'active', searchable: true, className: 'dt-center', customValue: true},
 ];
@@ -25,6 +25,8 @@ function getStatus(column, value) {
         );
     } else if (column === 1) {
         return '<img width="35" height="35" src="' + value + '" class="m--img-rounded m--marginless" alt="Picture">';
+    } else if (column === 3) {
+        return moneyFormat(value)
     } else if (column === 5) {
         return value ? '<i class="fa fa-check-square m--font-success"></i>' : '<i class="fa fa-window-close m--font-danger"></i>'
     }

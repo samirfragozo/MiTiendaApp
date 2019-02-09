@@ -41,7 +41,7 @@
 
 @push('scripts')
     @include('includes.scripts')
-    @if (file_exists('js/cruds/' . $crud . '.js')) {
+    @if (file_exists('js/cruds/' . $crud . '.js'))
         <script type="text/javascript" language="javascript" src="{{ asset('js/cruds/' . $crud . '.js') }}" defer></script>
     @endif
     @if($crud === 'stores' or $crud === 'storekeeper.stores')

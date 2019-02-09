@@ -107,6 +107,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the orders for the user.
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+
+    /**
      * Get the stores for the user.
      */
     public function stores()

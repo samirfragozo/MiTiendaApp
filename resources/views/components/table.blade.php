@@ -3,7 +3,7 @@
     <thead>
     <tr>
         @if(isset($check) and $check)
-            <th name="check" class=" dt-center">
+            <th name="check" class="dt-center">
                 <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
                     {{ Form::checkbox('massive', null, false, ['class' => 'm-group-checkable']) }}
                     <span></span>

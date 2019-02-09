@@ -1,8 +1,8 @@
 columnsDataTable = [
     {data: 'created_at'},
     {data: 'store.name'},
-    {data: 'quantity', searchable: false, className: 'dt-center'},
-    {data: 'total', searchable: false, className: 'dt-center'},
+    {data: 'quantity', searchable: false, className: 'dt-right'},
+    {data: 'total', searchable: false, className: 'dt-right', customValue: true},
     {data: 'translated_status', searchable: false, className: 'dt-center', customValue: true},
     {data: 'actions_user', searchable: false, className: 'dt-center', customValue: true},
 ];
@@ -25,6 +25,8 @@ function cancel(id) {
 function getStatus(column, value) {
     if (column === 4) {
         return '<span class="m-badge m-badge--' + value.class + ' m-badge--wide">' + value.status + '</span>';
+    } else if (column === 3) {
+        return moneyFormat(value)
     } else if (column === 5) {
         let actions = '';
 

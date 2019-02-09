@@ -58,6 +58,7 @@ return [
             'debts' => 'Deudas',
             'orders' => 'Mis Pedidos',
             'ordersStore' => 'Pedidos',
+            'payments' => 'Pagos',
             'products' => 'Productos',
             'providers' => 'Proveedores',
             'stores' => 'Mis Tiendas',
@@ -77,7 +78,6 @@ return [
                 'cancelled_user' => 'Cancelado por Cliente',
                 'dispatched' => 'Enviado',
                 'delivered' => 'Entregado',
-                'paid' => 'Pagado',
                 'pending' => 'Pendiente',
             ],
             'status_class' => [
@@ -85,15 +85,13 @@ return [
                 'cancelled_user' => 'warning',
                 'dispatched' => 'info',
                 'delivered' => 'success',
-                'paid' => 'accent',
                 'pending' => 'primary',
             ],
             'status_next' => [
                 'cancelled' => '',
                 'cancelled_user' => '',
                 'dispatched' => 'delivered',
-                'delivered' => 'paid',
-                'paid' => '',
+                'delivered' => '',
                 'pending' => 'dispatched',
             ],
         ],
@@ -101,5 +99,6 @@ return [
 
     'singular_titles' => [
         'stores' => 'Tienda',
+        'payments' => 'Pago',
     ],
 ];

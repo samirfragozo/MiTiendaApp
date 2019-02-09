@@ -186,6 +186,16 @@ function unblock(element){
     mApp.unblock(element, {});
 }
 
+function moneyFormat(value){
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    });
+
+    return formatter.format(value);
+}
+
 //Init select picker
 $(".m_selectpicker").selectpicker();
 

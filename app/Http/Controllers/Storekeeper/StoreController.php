@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\StoreRequest;
 use App\Store;
 use Illuminate\Http\Request;
+use stdClass;
 use Yajra\DataTables\DataTables;
 
 class StoreController extends BaseController
@@ -68,21 +69,42 @@ class StoreController extends BaseController
         if ( is_null($store) ) return abort(404);
 
         if (request()->ajax()) {
-            $user = [];
+            $users = [];
             $orders = $store->orders()->where('status', 'delivered')->with('user')->get()->groupBy('user_id');
+            $payments = $store->payments()->with('user')->get()->groupBy('user_id');
+
+            $keys = array_unique(array_merge($orders->keys()->all(), $payments->keys()->all()));
+
+            foreach ($keys as $key) {
+                $users[$key] = new stdClass();
+                $users[$key]->orders = 0;
+                $users[$key]->total_orders = 0;
+                $users[$key]->payments = 0;
+                $users[$key]->total_payments = 0;
+                $users[$key]->debt = 0;
+            }
+
             foreach ($orders as $key => $value) {
-                $debt = 0;
-                $orders = 0;
                 foreach ($value as $order) {
-                    $debt += $order->total;
-                    $orders ++;
-                    $user[$key] = $order->user;
-                    $user[$key]->debt = $debt;
-                    $user[$key]->orders = $orders;
+                    $users[$key]->id = $order->user->id;
+                    $users[$key]->full_name = $order->user->full_name;
+                    $users[$key]->orders ++;
+                    $users[$key]->total_orders += $order->total;
                 }
             };
 
-            return Datatables::of($user)->make(true);
+            foreach ($payments as $key => $value) {
+                foreach ($value as $payment) {
+                    $users[$key]->id = $payment->user->id;
+                    $users[$key]->full_name = $payment->user->full_name;
+                    $users[$key]->payments ++;
+                    $users[$key]->total_payments += $payment->value;
+                }
+                //dd((double)$users[$key]->total_orders, (double)$users[$key]->total_payments, (double)$users[$key]->total_orders - (double)$users[$key]->total_payments);
+                $users[$key]->debt = (double)$users[$key]->total_orders - (double)$users[$key]->total_payments;
+            };
+
+            return Datatables::of($users)->make(true);
         }
 
         return view('app.index')->with([
@@ -95,7 +117,7 @@ class StoreController extends BaseController
             ],
             'table' => [
                 'check' => false,
-                'fields' => ['name', 'orders', 'debt'],
+                'fields' => ['name', 'orders', 'total_orders', 'payments', 'total_payments', 'debt'],
                 'active' => false,
                 'actions' => true,
             ],

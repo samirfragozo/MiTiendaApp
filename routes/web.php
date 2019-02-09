@@ -79,10 +79,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('stores', 'StoreController', ['except' => ['create', 'edit']]);
         Route::post('stores/status', 'StoreController@status');
 
-        // Stores - Deudas
+        // Stores - Debts
         Route::get('stores/{store}/debts', 'StoreController@debts');
         Route::get('stores/{store}/debts/{user}/orders', 'StoreController@debtOrders');
-        Route::put('stores/{store}/debts/{user}/orders', 'StoreController@orderUpdate');
+        Route::resource('stores/{store}/debts/{user}/payments', 'PaymentController', ['except' => ['create', 'edit']]);
         Route::get('stores/{store}/debts/{user}/orders/{order}/products', 'StoreController@orderProducts');
 
         // Stores - Orders

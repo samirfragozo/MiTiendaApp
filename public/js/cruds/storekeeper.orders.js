@@ -1,8 +1,8 @@
 columnsDataTable = [
     {data: 'created_at'},
-    {data: 'user.full_name'},
-    {data: 'quantity', className: 'dt-center'},
-    {data: 'total', className: 'dt-center'},
+    {data: 'user.full_name', searchable: false},
+    {data: 'quantity', searchable: false, className: 'dt-right'},
+    {data: 'total', searchable: false, className: 'dt-right', customValue: true},
     {data: 'translated_status', searchable: false, className: 'dt-center', customValue: true},
     {data: 'actions', searchable: false, className: 'dt-center', customValue: true},
 ];
@@ -27,6 +27,8 @@ function status(id, next) {
 function getStatus(column, value) {
     if (column === 4) {
         return '<span class="m-badge m-badge--' + value.class + ' m-badge--wide">' + value.status + '</span>';
+    } else if (column === 3) {
+        return moneyFormat(value)
     } else if (column === 5) {
         let actions = '';
 
@@ -38,22 +40,16 @@ function getStatus(column, value) {
             ;
         }
 
-        if (value.next == 'dispatched') {
+        if (value.next === 'dispatched') {
             actions +=
                 '<a onclick="status(' + value.id + ',\'' + value.next + '\')" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-info" title="Enviado">' +
                 '<i class="fa fa-motorcycle"></i>' +
                 '</a>'
             ;
-        } else if (value.next == 'delivered') {
+        } else if (value.next === 'delivered') {
             actions +=
                 '<a onclick="status(' + value.id + ',\'' + value.next + '\')" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-success" title="Entregado">' +
                 '<i class="fa fa-user-check"></i>' +
-                '</a>'
-            ;
-        } else if (value.next == 'paid') {
-            actions +=
-                '<a onclick="status(' + value.id + ',\'' + value.next + '\')" class="m-portlet__nav-link btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--hover-accent" title="Pagado">' +
-                '<i class="fa fa-money-bill"></i>' +
                 '</a>'
             ;
         }

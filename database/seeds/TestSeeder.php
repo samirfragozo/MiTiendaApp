@@ -41,10 +41,19 @@ class TestSeeder extends Seeder
         }
 
         for ($i = 1; $i <= 1000; $i++) {
+            $user_id = random_int(1, \App\User::count());
+            $store_id = random_int(1, \App\Store::count());
+
             $order = factory(App\Order::class)->create([
-                'user_id' => random_int(1, \App\User::count()),
-                'store_id' => random_int(1, \App\Store::count()),
+                'user_id' => $user_id,
+                'store_id' => $store_id,
             ]);
+
+            factory(App\Payment::class)->create([
+                'user_id' => $user_id,
+                'store_id' => $store_id,
+            ]);
+
 
             $products = App\Product::where('store_id', $order->store_id)->get()->shuffle();
             $products = $products->take(random_int(1, 15));

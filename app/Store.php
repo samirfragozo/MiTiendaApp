@@ -139,6 +139,14 @@ class Store extends Base
     }
 
     /**
+     * Get the orders for the store.
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
+    }
+
+    /**
      * Get the products for the store.
      */
     public function products()

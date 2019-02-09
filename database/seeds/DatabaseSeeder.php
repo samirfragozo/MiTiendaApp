@@ -14,12 +14,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RolesTableSeeder::class,
-            UsersTableSeeder::class,
             CategoriesTableSeeder::class,
         ]);
 
         if (App::environment(['local', 'staging', 'testing', 'development'])) {
-            $this->call(TestSeeder::class);
+            $this->call([
+                UsersTableSeeder::class,
+                TestSeeder::class,
+            ]);
         }
     }
 }
