@@ -26,7 +26,7 @@ class PaymentController extends BaseController
         $this->user = ['store', 'user_id'];
         $this->middleware(function ($request, $next) {
             $this->id = $request->payment;
-            $this->store = \App\Store::where([['id', $request->store], ['user_id', Auth::id()]])->store()->first();
+            $this->employee = \App\Store::where([['id', $request->store], ['user_id', Auth::id()]])->store()->first();
             $user = \App\User::find($request->user);
 
             if ( !is_null($this->store) ) {
